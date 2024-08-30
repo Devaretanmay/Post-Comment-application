@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CommentCreate from './CommentCreate';
 import CommentList from './CommentList';
-import { ThemeContext } from './App';
 
-const PostList = () => {
+export default () => {
     const [posts, setPosts] = useState({});
-    const { isDarkTheme } = useContext(ThemeContext);
 
     const fetchPosts = async () => {
         const res = await axios.get('http://localhost:4000/posts');
@@ -15,26 +13,23 @@ const PostList = () => {
 
     useEffect(() => {
         fetchPosts();
+        const interval = setInterval(fetchPosts, 5000);
+        return () => clearInterval(interval);
     }, []);
 
     const renderedPosts = Object.values(posts).map(post => {
         return (
-            <div className={`card ${isDarkTheme ? 'bg-dark text-white' : ''}`} key={post.id}>
-                <div className="card-body">
-                    <h3 className="post-title">{post.title}</h3>
-                    <CommentList postId={post.id} />
-                    <CommentCreate postId={post.id} />
-                </div>
+            <div className="post-card" key={post.id}>
+                <h3 className="post-title">{post.title}</h3>
+                <div className="comment-count">{post.comments?.length || 0} comments</div>
+                <CommentList postId={post.id} />
+                <CommentCreate postId={post.id} onCommentCreated={fetchPosts} />
             </div>
         );
     });
 
     return (
-        <div>
-            <h2 className="text-center">Posts</h2>
-            {renderedPosts}
-        </div>
+        <div className="posts-grid">{renderedPosts}</div>
     );
 };
 
-export default PostList;

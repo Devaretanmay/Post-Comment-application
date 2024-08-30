@@ -1,36 +1,30 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ThemeContext } from './App';
 
-const CommentList = ({ postId }) => {
+export default ({ postId }) => {
     const [comments, setComments] = useState([]);
-    const { isDarkTheme } = useContext(ThemeContext);
 
-    const fetchData = async () => {
+    const fetchComments = async () => {
         const res = await axios.get(`http://localhost:4001/posts/${postId}/comments`);
         setComments(res.data);
     };
 
     useEffect(() => {
-        fetchData();
+        fetchComments();
+        const interval = setInterval(fetchComments, 5000);
+        return () => clearInterval(interval);
     }, [postId]);
 
     const renderedComments = comments.map(comment => {
-        return <li key={comment.id} className={`comment-item ${isDarkTheme ? 'bg-secondary' : ''}`}>{comment.content}</li>;
+        return <li key={comment.id} className="list-group-item">{comment.content}</li>;
     });
 
     return (
-        <div className={`comment-section mt-3 ${isDarkTheme ? 'text-white' : ''}`}>
+        <div className="mt-3">
             <h4>Comments</h4>
-            {comments.length > 0 ? (
-                <ul className="comment-list">
-                    {renderedComments}
-                </ul>
-            ) : (
-                <p className="text-muted">No comments yet.</p>
-            )}
+            <ul className="list-group">
+                {renderedComments}
+            </ul>
         </div>
     );
 };
-
-export default CommentList;

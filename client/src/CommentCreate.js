@@ -1,47 +1,49 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { ThemeContext } from './App';
 
-const CommentCreate = ({ postId }) => {
+export default ({ postId, onCommentCreated }) => {
     const [content, setContent] = useState('');
-    const { isDarkTheme } = useContext(ThemeContext);
+    const [error, setError] = useState('');
 
     const onSubmit = async (event) => {
         event.preventDefault();
+
+        if (!content.trim()) {
+            setError('Comment cannot be empty');
+            return;
+        }
 
         try {
             await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
                 content
             });
+
             setContent('');
-        } catch (error) {
-            console.error('Error creating comment:', error);
+            setError('');
+            if (onCommentCreated) onCommentCreated();
+        } catch (err) {
+            setError('Failed to create comment. Please try again.');
         }
     };
 
     return (
-        <div className={`mt-4 ${isDarkTheme ? 'text-white' : ''}`}>
-            <h5>Add a Comment</h5>
+        <div>
             <form onSubmit={onSubmit}>
-                <div className="form-group mb-3">
-                    <label htmlFor="content" className="form-label mb-2">Comment</label>
-                    <textarea
-                        id="content"
+                <div className="form-group">
+                    <label>New Comment</label>
+                    <input
                         value={content}
-                        onChange={e => setContent(e.target.value)}
-                        className={`form-control ${isDarkTheme ? 'bg-secondary text-white' : ''}`}
-                        placeholder="Write your comment here..."
-                        rows="3"
-                        required
+                        onChange={e => {
+                            setContent(e.target.value);
+                            setError('');
+                        }}
+                        className="form-control"
+                        placeholder="Enter your comment"
                     />
-                    <small className="form-text text-muted mt-1">
-                        Share your thoughts on this post.
-                    </small>
                 </div>
-                <button className="btn btn-primary">Submit Comment</button>
+                {error && <div className="alert alert-danger mt-2">{error}</div>}
+                <button className="btn btn-secondary mt-2">Add Comment</button>
             </form>
         </div>
     );
 };
-
-export default CommentCreate;
