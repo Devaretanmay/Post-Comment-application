@@ -1,29 +1,46 @@
-// @ts-nocheck
 const express = require('express');
-const app = express();
-const { randomBytes } = require('crypto');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { randomBytes } = require('crypto');
+
+const app = express();
+app.use(bodyParser.json());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 const posts = {};
-app.use(bodyParser.json());
-app.use(cors());
 
 app.get('/posts', (req, res) => {
-    return res.send(posts);
+  console.log('GET /posts - Current posts:', posts);
+  res.send(posts);
 });
 
-
-
- app.post('/posts', (req, res) => {
-    const id = randomBytes(4).toString('hex');
-    const { title } = req.body;
-    posts[id] = {
-        id, title
-    };
-    res.status(201).send(posts[id]);
+app.post('/posts', (req, res) => {
+  const id = randomBytes(4).toString('hex');
+  const { title } = req.body;
+  posts[id] = { id, title };
+  console.log(`POST /posts - Created new post with ID: ${id}`);
+  res.status(201).send(posts[id]);
 });
 
-app.listen(4000, () => {
-    console.log('Server is running on port 4000');
+app.delete('/posts/:id', (req, res) => {
+  const { id } = req.params;
+  console.log(`DELETE /posts/${id} - Attempting to delete post`);
+  console.log('Current posts:', posts);
+  if (posts[id]) {
+    delete posts[id];
+    console.log(`Post ${id} deleted successfully`);
+    res.status(204).send();
+  } else {
+    console.log(`Post ${id} not found`);
+    res.status(404).send({ error: 'Post not found' });
+  }
+});
+
+const port = 4000;
+app.listen(port, () => {
+  console.log(`Posts service listening on port ${port}`);
 });

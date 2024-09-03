@@ -1,5 +1,15 @@
 {
-  "dependencies": {
-    "bootstrap": "^5.3.3"
+  "name": "blog-post-app",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"npm run start:posts\" \"npm run start:comments\" \"npm run start:theme\" \"npm run start:client\"",
+    "start:posts": "cd posts && npm start",
+    "start:comments": "cd comments && npm start",
+    "start:theme": "cd theme-service && npm start",
+    "start:client": "cd client && npm start",
+    "postinstall": "concurrently \"cd posts && npm install\" \"cd comments && npm install\" \"cd theme-service && npm install\" \"cd client && npm install\""
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0"
   }
 }

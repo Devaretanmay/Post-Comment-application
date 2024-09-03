@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default ({ postId, onCommentCreated }) => {
+export default ({ postId, onCommentCreated, theme }) => {
     const [content, setContent] = useState('');
     const [error, setError] = useState('');
 
@@ -37,12 +37,12 @@ export default ({ postId, onCommentCreated }) => {
                             setContent(e.target.value);
                             setError('');
                         }}
-                        className="form-control"
+                        className={`form-control ${theme}`}
                         placeholder="Enter your comment"
                     />
                 </div>
                 {error && <div className="alert alert-danger mt-2">{error}</div>}
-                <button className="btn btn-secondary mt-2">Add Comment</button>
+                <button className={`btn btn-secondary mt-2 ${theme}`}>Add Comment</button>
             </form>
         </div>
     );

@@ -1,105 +1,575 @@
 body {
-    background-color: #f8f9fa;
-    color: #333;
-    font-family: Arial, Verdana, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  line-height: 1.5;
 }
 
 .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 h1, h2, h3, h4 {
-    color: #2c3e50;
+  margin-bottom: 1rem;
 }
 
 .navbar {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem 0;
+  margin-bottom: 2rem;
 }
 
 .create-post-section {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-}
-
-.create-post-section h2 {
-    font-size: 1.5em;
-    margin-bottom: 15px;
-}
-
-.create-post-section .form-control {
-    width: 60%;
-    display: inline-block;
-    margin-right: 10px;
-}
-
-.create-post-section .btn {
-    width: auto;
-    vertical-align: top;
-}
-
-hr {
-    margin: 30px 0;
-    border: 0;
-    border-top: 1px solid #eee;
-}
-
-.posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
-    gap: 20px;
-}
-
-.post-card {
-    background-color: #e3f2fd;
-    border: 1px solid #90caf9;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.post-title {
-    font-weight: bold;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.comment-count {
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 10px;
-    font-style: italic;
-}
-
-.comment-section {
-    background-color: #fff;
-    border-radius: 4px;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.btn-primary, .btn-secondary {
-    width: 100%;
-    margin-top: 10px;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .form-control {
-    margin-bottom: 10px;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid;
+  transition: all 0.3s ease;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.posts-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.post-card {
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.post-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.comment-count {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Light Mode */
+.app.light {
+  background-color: var(--light-bg);
+  color: var(--light-text);
+}
+
+.app.light .navbar {
+  background-color: var(--light-input-bg);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.app.light .create-post-section,
+.app.light .post-card {
+  background-color: var(--light-input-bg);
+  border: 1px solid var(--light-border);
+}
+
+.app.light .form-control {
+  background-color: var(--light-input-bg);
+  color: var(--light-text);
+  border-color: var(--light-border);
+}
+
+.app.light .form-control::placeholder {
+  color: var(--light-placeholder);
+}
+
+.app.light .form-control:focus {
+  border-color: var(--light-focus-border);
+  box-shadow: 0 0 0 2px rgba(0,149,246,0.2);
+}
+
+.app.light .btn-primary {
+  background-color: var(--light-accent);
+  color: white;
+}
+
+.app.light .btn-primary:hover {
+  background-color: var(--light-hover-accent);
+}
+
+.app.light .comment-count {
+  color: var(--light-secondary-text);
+}
+
+/* Dark Mode */
+.app.dark {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.app.dark .navbar {
+  background-color: var(--dark-input-bg);
+  box-shadow: 0 1px 2px rgba(255,255,255,0.1);
+}
+
+.app.dark .create-post-section,
+.app.dark .post-card {
+  background-color: var(--dark-input-bg);
+  border: 1px solid var(--dark-border);
+}
+
+.app.dark .form-control {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.app.dark .form-control::placeholder {
+  color: var(--dark-placeholder);
+}
+
+.app.dark .form-control:focus {
+  border-color: var(--dark-focus-border);
+  box-shadow: 0 0 0 2px rgba(0,149,246,0.2);
+}
+
+.app.dark .btn-primary {
+  background-color: var(--dark-accent);
+  color: white;
+}
+
+.app.dark .btn-primary:hover {
+  background-color: var(--dark-hover-accent);
+}
+
+.app.dark .comment-count {
+  color: var(--dark-secondary-text);
+}
+
+/* Add these new styles */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Add these to your existing light and dark mode styles */
+.app.light .btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.app.light .btn-danger:hover {
+  background-color: #c82333;
+}
+
+.app.dark .btn-danger {
+  background-color: #bd2130;
+  color: white;
+}
+
+.app.dark .btn-danger:hover {
+  background-color: #a71d2a;
 }
 
 @media (max-width: 768px) {
-    .posts-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .create-post-section .form-control,
-    .create-post-section .btn {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
 }
+
+:root {
+  /* Light Theme */
+  --light-bg: #F5F5F5;
+  --light-text: #333333;
+  --light-secondary-text: #757575;
+  --light-accent: #007BFF;
+  --light-border: #E0E0E0;
+  --light-input-bg: #FFFFFF;
+
+  /* Dark Theme */
+  --dark-bg: #121212;
+  --dark-text: #E0E0E0;
+  --dark-secondary-text: #B0B0B0;
+  --dark-accent: #03DAC5;
+  --dark-border: #333333;
+  --dark-input-bg: #1E1E1E;
+
+  /* High Contrast Theme */
+  --high-contrast-bg: #000000;
+  --high-contrast-text: #FFFFFF;
+  --high-contrast-secondary-text: #FFD700;
+  --high-contrast-accent: #00FFFF;
+  --high-contrast-border: #FFFFFF;
+  --high-contrast-input-bg: #000000;
+
+  /* Solarized Light Theme */
+  --solarized-light-bg: #FDF6E3;
+  --solarized-light-text: #586E75;
+  --solarized-light-secondary-text: #657B83;
+  --solarized-light-accent: #268BD2;
+  --solarized-light-border: #EEE8D5;
+  --solarized-light-input-bg: #FDF6E3;
+
+  /* Solarized Dark Theme */
+  --solarized-dark-bg: #002B36;
+  --solarized-dark-text: #839496;
+  --solarized-dark-secondary-text: #93A1A1;
+  --solarized-dark-accent: #CB4B16;
+  --solarized-dark-border: #073642;
+  --solarized-dark-input-bg: #073642;
+
+  /* Monokai Theme */
+  --monokai-bg: #272822;
+  --monokai-text: #F8F8F2;
+  --monokai-secondary-text: #F92672;
+  --monokai-accent: #A6E22E;
+  --monokai-border: #49483E;
+  --monokai-input-bg: #272822;
+
+  /* Dracula Theme */
+  --dracula-bg: #282A36;
+  --dracula-text: #F8F8F2;
+  --dracula-secondary-text: #6272A4;
+  --dracula-accent: #FF79C6;
+  --dracula-border: #44475A;
+  --dracula-input-bg: #44475A;
+}
+
+/* ... (rest of the styles remain unchanged) ... */
+
+/* Theme-specific styles */
+.app.light {
+  background-color: var(--light-bg);
+  color: var(--light-text);
+}
+
+.app.light .navbar {
+  background-color: var(--light-input-bg);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.app.light .create-post-section,
+.app.light .post-card {
+  background-color: var(--light-input-bg);
+  border: 1px solid var(--light-border);
+}
+
+.app.light .form-control {
+  background-color: var(--light-input-bg);
+  color: var(--light-text);
+  border-color: var(--light-border);
+}
+
+.app.light .form-control::placeholder {
+  color: var(--light-placeholder);
+}
+
+.app.light .form-control:focus {
+  border-color: var(--light-focus-border);
+  box-shadow: 0 0 0 2px rgba(0,149,246,0.2);
+}
+
+.app.light .btn-primary {
+  background-color: var(--light-accent);
+  color: white;
+}
+
+.app.light .btn-primary:hover {
+  background-color: var(--light-hover-accent);
+}
+
+.app.light .comment-count {
+  color: var(--light-secondary-text);
+}
+
+.app.dark {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.app.dark .navbar {
+  background-color: var(--dark-input-bg);
+  box-shadow: 0 1px 2px rgba(255,255,255,0.1);
+}
+
+.app.dark .create-post-section,
+.app.dark .post-card {
+  background-color: var(--dark-input-bg);
+  border: 1px solid var(--dark-border);
+}
+
+.app.dark .form-control {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.app.dark .form-control::placeholder {
+  color: var(--dark-placeholder);
+}
+
+.app.dark .form-control:focus {
+  border-color: var(--dark-focus-border);
+  box-shadow: 0 0 0 2px rgba(0,149,246,0.2);
+}
+
+.app.dark .btn-primary {
+  background-color: var(--dark-accent);
+  color: white;
+}
+
+.app.dark .btn-primary:hover {
+  background-color: var(--dark-hover-accent);
+}
+
+.app.dark .comment-count {
+  color: var(--dark-secondary-text);
+}
+
+.app.highContrast {
+  background-color: var(--high-contrast-bg);
+  color: var(--high-contrast-text);
+}
+
+.app.highContrast .navbar {
+  background-color: var(--high-contrast-input-bg);
+  box-shadow: 0 1px 2px rgba(255,255,255,0.1);
+}
+
+.app.highContrast .create-post-section,
+.app.highContrast .post-card {
+  background-color: var(--high-contrast-input-bg);
+  border: 1px solid var(--high-contrast-border);
+}
+
+.app.highContrast .form-control {
+  background-color: var(--high-contrast-input-bg);
+  color: var(--high-contrast-text);
+  border-color: var(--high-contrast-border);
+}
+
+.app.highContrast .form-control::placeholder {
+  color: var(--high-contrast-secondary-text);
+}
+
+.app.highContrast .form-control:focus {
+  border-color: var(--high-contrast-accent);
+  box-shadow: 0 0 0 2px rgba(0,255,255,0.2);
+}
+
+.app.highContrast .btn-primary {
+  background-color: var(--high-contrast-accent);
+  color: var(--high-contrast-bg);
+}
+
+.app.highContrast .btn-primary:hover {
+  background-color: var(--high-contrast-accent);
+  color: var(--high-contrast-bg);
+}
+
+.app.highContrast .comment-count {
+  color: var(--high-contrast-secondary-text);
+}
+
+.app.solarizedLight {
+  background-color: var(--solarized-light-bg);
+  color: var(--solarized-light-text);
+}
+
+.app.solarizedLight .navbar {
+  background-color: var(--solarized-light-input-bg);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.app.solarizedLight .create-post-section,
+.app.solarizedLight .post-card {
+  background-color: var(--solarized-light-input-bg);
+  border: 1px solid var(--solarized-light-border);
+}
+
+.app.solarizedLight .form-control {
+  background-color: var(--solarized-light-input-bg);
+  color: var(--solarized-light-text);
+  border-color: var(--solarized-light-border);
+}
+
+.app.solarizedLight .form-control::placeholder {
+  color: var(--solarized-light-secondary-text);
+}
+
+.app.solarizedLight .form-control:focus {
+  border-color: var(--solarized-light-accent);
+  box-shadow: 0 0 0 2px rgba(38,139,210,0.2);
+}
+
+.app.solarizedLight .btn-primary {
+  background-color: var(--solarized-light-accent);
+  color: white;
+}
+
+.app.solarizedLight .btn-primary:hover {
+  background-color: var(--solarized-light-hover-accent);
+}
+
+.app.solarizedLight .comment-count {
+  color: var(--solarized-light-secondary-text);
+}
+
+.app.solarizedDark {
+  background-color: var(--solarized-dark-bg);
+  color: var(--solarized-dark-text);
+}
+
+.app.solarizedDark .navbar {
+  background-color: var(--solarized-dark-input-bg);
+  box-shadow: 0 1px 2px rgba(255,255,255,0.1);
+}
+
+.app.solarizedDark .create-post-section,
+.app.solarizedDark .post-card {
+  background-color: var(--solarized-dark-input-bg);
+  border: 1px solid var(--solarized-dark-border);
+}
+
+.app.solarizedDark .form-control {
+  background-color: var(--solarized-dark-input-bg);
+  color: var(--solarized-dark-text);
+  border-color: var(--solarized-dark-border);
+}
+
+.app.solarizedDark .form-control::placeholder {
+  color: var(--solarized-dark-secondary-text);
+}
+
+.app.solarizedDark .form-control:focus {
+  border-color: var(--solarized-dark-accent);
+  box-shadow: 0 0 0 2px rgba(203,75,22,0.2);
+}
+
+.app.solarizedDark .btn-primary {
+  background-color: var(--solarized-dark-accent);
+  color: white;
+}
+
+.app.solarizedDark .btn-primary:hover {
+  background-color: var(--solarized-dark-hover-accent);
+}
+
+.app.solarizedDark .comment-count {
+  color: var(--solarized-dark-secondary-text);
+}
+
+.app.monokai {
+  background-color: var(--monokai-bg);
+  color: var(--monokai-text);
+}
+
+.app.monokai .navbar {
+  background-color: var(--monokai-input-bg);
+  box-shadow: 0 1px 2px rgba(255,255,255,0.1);
+}
+
+.app.monokai .create-post-section,
+.app.monokai .post-card {
+  background-color: var(--monokai-input-bg);
+  border: 1px solid var(--monokai-border);
+}
+
+.app.monokai .form-control {
+  background-color: var(--monokai-input-bg);
+  color: var(--monokai-text);
+  border-color: var(--monokai-border);
+}
+
+.app.monokai .form-control::placeholder {
+  color: var(--monokai-secondary-text);
+}
+
+.app.monokai .form-control:focus {
+  border-color: var(--monokai-accent);
+  box-shadow: 0 0 0 2px rgba(166,226,46,0.2);
+}
+
+.app.monokai .btn-primary {
+  background-color: var(--monokai-accent);
+  color: var(--monokai-bg);
+}
+
+.app.monokai .btn-primary:hover {
+  background-color: var(--monokai-hover-accent);
+}
+
+.app.monokai .comment-count {
+  color: var(--monokai-secondary-text);
+}
+
+.app.dracula {
+  background-color: var(--dracula-bg);
+  color: var(--dracula-text);
+}
+
+.app.dracula .navbar {
+  background-color: var(--dracula-input-bg);
+  box-shadow: 0 1px 2px rgba(255,255,255,0.1);
+}
+
+.app.dracula .create-post-section,
+.app.dracula .post-card {
+  background-color: var(--dracula-input-bg);
+  border: 1px solid var(--dracula-border);
+}
+
+.app.dracula .form-control {
+  background-color: var(--dracula-input-bg);
+  color: var(--dracula-text);
+  border-color: var(--dracula-border);
+}
+
+.app.dracula .form-control::placeholder {
+  color: var(--dracula-secondary-text);
+}
+
+.app.dracula .form-control:focus {
+  border-color: var(--dracula-accent);
+  box-shadow: 0 0 0 2px rgba(255,121,198,0.2);
+}
+
+.app.dracula .btn-primary {
+  background-color: var(--dracula-accent);
+  color: var(--dracula-bg);
+}
+
+.app.dracula .btn-primary:hover {
+  background-color: var(--dracula-hover-accent);
+}
+
+.app.dracula .comment-count {
+  color: var(--dracula-secondary-text);
+}
+
+.app.dark .alert-info {
+  background-color: #1e3a40;
+  color: #8ed1dc;
+  border: 1px solid #2f5f6b;
+}
+
+/* Add styles for other themes' alert-info if needed */
